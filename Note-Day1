@@ -1,11 +1,5 @@
 # decorator
 decorator learning note
-echo "# decorator" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/lancehere/decorator.git
-git push -u origin master
 def set_fun(fun):
     def call_fun(*args,**kwargs):
         print('而是我终于得知了你的方向')
@@ -25,3 +19,22 @@ def test(data):
 
 
 test('有你的地方')
+
+######################
+#装饰器的原理实现代码，实现功能是记录程序执行时间
+import time,functools
+
+def timethis(func):
+    @functools.wraps(func)
+    def wrapper(*args,**kwargs):
+        start = time.time()
+        result = func(*args,**kwargs)
+        end = time.time()
+        print(func.__name__,end-start)
+        return result
+    return wrapper
+
+@timethis
+def test(n):
+    while n > 1:
+        n -= 1
